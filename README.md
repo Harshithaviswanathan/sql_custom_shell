@@ -59,6 +59,8 @@ DELETE FROM table_name WHERE condition;
 Implements file-level locking mechanisms using C to prevent race conditions and data corruption when multiple users access or modify the database simultaneously.
 
 ⚙️ How to Run
+Create userlog.txt file and insert the username:password for admin
+echo "admin:adminpassword" > userlog.txt
 1️⃣ Compile the C Program
 
 gcc final_new.c -o final_new
