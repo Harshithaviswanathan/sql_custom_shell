@@ -1,70 +1,65 @@
-📂 Database System Using C and Shell Script
-🔍 Overview
-This project implements a SQL-based command-line database system that integrates:
+# 📂 Database System Using C and Shell Script
 
-C programming for core logic and command parsing.
+## 🔍 Overview
 
-Shell scripting for user authentication, logging, and file management.
+This project implements a **simple SQL-based command-line database system** that integrates:
 
-Key features include:
+- ✅ **C programming** – for core logic, SQL parsing, and execution.
+- ✅ **Shell scripting** – for user authentication, logging, and session control.
 
-User authentication and logging via a shell script.
+This system supports **basic SQL operations**, role-based user access, and file-level concurrency control using locks.
 
-A database file storing the database contents.
+---
 
-Role-based access control:
+## 🧩 Features
 
-Administrators can create the database file and users.
+### 🔐 Authentication & User Roles
 
-Normal users cannot create/delete the database file but can create SQL script files and run queries to modify data.
+- Runs an authentication function on startup to manage users and track activity in a `log.txt` file.
+- Supports **two types of users**:
+  - **Administrator** (`SYS`) — has full privileges including user creation and database file management.
+  - **Normal User** — can only run SQL queries via script files.
+- **Default Admin**:
+  - **Username**: `SYS`
+  - **Password**: Defined by the first user at setup.
+- Admins can create users using the `CREATE USER` command.
 
-A custom database shell for interacting with the system.
+---
 
-🧩 Features
-🔐 Authentication & Users
-Upon system startup, an authentication function runs to manage users and record activity in a log file.
+### 💻 Database Shell Commands
 
-Default administrator user:
+| Command             | Description                                              | Access         |
+|---------------------|----------------------------------------------------------|----------------|
+| `CREATE USER`       | Create new users                                         | Admin only     |
+| `PERFORM filename`  | Opens a new file to write SQL queries                    | All users      |
+| `COMPILE filename`  | Executes the SQL queries written in a given file         | All users      |
+| `LOGOUT`            | Logs out the current user                                | All users      |
+| `EXIT`              | Exits the shell                                          | All users      |
 
-Username: SYS
+> ⚠️ Any invalid operation generates a log entry with an alert message.
 
-Password: Set by the first user during setup.
+---
 
-Only administrators can create new users with the CREATE USER command.
+### 🗃️ SQL Query Support in Files
 
-💻 Database Shell Commands
-CREATE USER: (Admin only) Create new database users.
-
-PERFORM filename: Opens a new window to write SQL queries into a file.
-
-COMPILE filename: Executes SQL queries written in the file.
-
-LOGOUT: Logs out the current user.
-
-EXIT: Exits the database shell.
-
-Invalid commands generate alert entries in the log file.
-
-🗃️ SQL Query Support in Files
-INSERT INTO table_name VALUES(...);
-Adds new records to the specified table.
-
-UPDATE INTO table_name SET ... WHERE ...;
-Updates specified records, with optional WHERE clause to filter rows.
-
-SELECT ... FROM table_name WHERE ... ORDER BY ... GROUP BY ... HAVING ...;
-Supports selecting attributes, filtering with WHERE, sorting with ORDER BY, grouping with GROUP BY, and filtering groups with HAVING.
-
-DELETE FROM table_name WHERE ...;
-Deletes records; without a WHERE clause deletes all records.
-
+Supports the following SQL commands inside `.sql` files:
+📥 INSERT
+INSERT INTO table_name VALUES(value1, value2, ...);
+✏️ UPDATE
+UPDATE INTO table_name SET column=value WHERE condition;
+🔎 SELECT
+SELECT column1, column2 FROM table_name 
+WHERE condition 
+ORDER BY column 
+GROUP BY column 
+HAVING condition;
+🗑️ DELETE
+DELETE FROM table_name WHERE condition;
 🔒 Concurrency Control
-The system uses file locking mechanisms to support concurrency control and avoid data corruption during simultaneous operations.
+Implements file-level locking mechanisms using C to prevent race conditions and data corruption when multiple users access or modify the database simultaneously.
 
 ⚙️ How to Run
-
-Compile the C program:
+1️⃣ Compile the C Program
 gcc final_new.c -o final_new
-
-Run the shell script to start the database shell:
+2️⃣ Run the Shell Script
 bash ./database.sh
