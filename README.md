@@ -64,7 +64,7 @@ The system uses file locking mechanisms to support concurrency control and avoid
 ⚙️ How to Run
 
 Compile the C program:
-gcc user.c -o user
+gcc final_new.c -o final_new
 
 Run the shell script to start the database shell:
-bash ./sample.sh
+bash ./.sh
