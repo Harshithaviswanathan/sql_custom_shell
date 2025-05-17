@@ -67,4 +67,4 @@ Compile the C program:
 gcc final_new.c -o final_new
 
 Run the shell script to start the database shell:
-bash ./.sh
+bash ./database.sh
