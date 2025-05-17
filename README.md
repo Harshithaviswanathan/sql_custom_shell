@@ -60,6 +60,8 @@ Implements file-level locking mechanisms using C to prevent race conditions and 
 
 ⚙️ How to Run
 1️⃣ Compile the C Program
+
 gcc final_new.c -o final_new
 2️⃣ Run the Shell Script
+
 bash ./database.sh
